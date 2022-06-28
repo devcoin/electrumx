@@ -4015,3 +4015,75 @@ class Syscoin(AuxPowMixin, Coin):
     RPC_PORT = 8370
     REORG_LIMIT = 2000
     CHUNK_SIZE = 360
+
+
+class Devcoin(AuxPowMixin, Coin):
+    NAME = "Devcoin"
+    SHORTNAME = "DVC"
+    NET = "mainnet"
+
+    # base58Prefixes from chainparams.cpp
+    P2PKH_VERBYTE = bytes.fromhex("00") # PUBKEY_ADDRESS
+    P2SH_VERBYTES = (bytes.fromhex("05"),) # SCRIPT_ADDRESS
+    WIF_BYTE = bytes.fromhex("80") # SECRET_KEY
+    XPUB_VERBYTES = bytes.fromhex("0488B21E") # EXT_PUBLIC_KEY
+    XPRV_VERBYTES = bytes.fromhex("0488ADE4") # EXT_SECRET_KEY
+
+    # consensus.hashGenesisBlock (split in two)
+    GENESIS_HASH = ('0000000062558fec003bcbf29e915cdd'
+                    'fc34fa257dc87573f28e4520d1c7c11e')
+
+    TX_COUNT_HEIGHT = 521192
+    TX_COUNT = 1
+    TX_PER_BLOCK = 5
+    RPC_PORT = 52332
+
+
+class DevcoinTestNetMixin(AuxPowMixin, Coin):
+    NAME = "Devcoin"
+    SHORTNAME = "XDVC"
+    NET = "testnet"
+
+    # base58Prefixes from chainparams.cpp
+    P2PKH_VERBYTE = bytes.fromhex("6F") # PUBKEY_ADDRESS
+    P2SH_VERBYTES = (bytes.fromhex("C4"),) # SCRIPT_ADDRESS
+    WIF_BYTE = bytes.fromhex("EF") # SECRET_KEY
+    XPUB_VERBYTES = bytes.fromhex("043587CF") # EXT_PUBLIC_KEY
+    XPRV_VERBYTES = bytes.fromhex("04358394") # EXT_SECRET_KEY
+
+    PEERS = []
+    TX_COUNT = 1
+    TX_COUNT_HEIGHT = 1
+    TX_PER_BLOCK = 21
+
+
+class DevcoinTestNet(DevcoinTestNetMixin, Coin):
+    '''Devcoin Core Testnet for devcoind >= 22.'''
+
+    # consensus.hashGenesisBlock (split in two)
+    GENESIS_HASH = ('0000000062558fec003bcbf29e915cdd'
+                    'fc34fa257dc87573f28e4520d1c7c11e')
+
+    RPC_PORT = 62334
+
+
+class DevcoinSignet(DevcoinTestNetMixin):
+    '''Devcoin Core Regtest for devcoind >= 22.'''
+    NET = "regtest"
+
+    # consensus.hashGenesisBlock (split in two)
+    GENESIS_HASH = ('0000028e422d9bfc9b654e9f58e00ff2'
+                    '53740ef15f5a06d35a91529a6f4a6d0d')
+
+    RPC_PORT = 42332
+
+
+class DevcoinRegtest(DevcoinTestNetMixin):
+    '''Devcoin Core Regtest for devcoind >= 22.'''
+    NET = "regtest"
+
+    # consensus.hashGenesisBlock (split in two)
+    GENESIS_HASH = ('734c2911bc3e664eb291150d06068053'
+                    '4e0048ed99a26fc2bbe387dd65c4b0a8')
+
+    RPC_PORT = 52443
